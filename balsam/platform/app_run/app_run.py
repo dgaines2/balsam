@@ -156,7 +156,8 @@ class SubprocessAppRun(AppRun):
         if gpu_ids:
             envs["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
             envs["CUDA_VISIBLE_DEVICES"] = ",".join(map(str, gpu_ids))
-        envs["OMP_NUM_THREADS"] = str(self._threads_per_rank)
+        if "OMP_NUM_THREADS" not in envs:
+            envs["OMP_NUM_THREADS"] = str(self._threads_per_rank)
         self._envs = envs
 
     def _open_outfile(self) -> IO[bytes]:

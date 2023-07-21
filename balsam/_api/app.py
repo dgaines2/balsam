@@ -235,7 +235,7 @@ class ApplicationDefinition(metaclass=ApplicationDefinitionMeta):
         envs = os.environ.copy()
         envs.update(self.environment_variables)
         envs["BALSAM_JOB_ID"] = str(self.job.id)
-        if self.job.threads_per_rank > 1:
+        if not "OMP_NUM_THREADS" in envs and self.job.threads_per_rank > 1:
             envs["OMP_NUM_THREADS"] = str(self.job.threads_per_rank)
         return envs
 

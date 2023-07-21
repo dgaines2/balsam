@@ -26,6 +26,7 @@ class ThetaAprun(SubprocessAppRun):
             cpu_affinity = "none"
         args = [
             "aprun",
+            "-T",
             "-n",
             self.get_num_ranks(),
             "-N",
